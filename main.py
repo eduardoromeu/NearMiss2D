@@ -1,11 +1,12 @@
 import pygame
-
+import modan
 print("Initializing game...")
 
+modan.init()
 pygame.init()
 
 screen = pygame.display.set_mode((1024, 768), vsync=True)
-display_info =  pygame.display.Info()
+display_info = pygame.display.Info()
 
 clock = pygame.time.Clock()
 
@@ -17,6 +18,9 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_F11:
+              screen = pygame.display.set_mode(flags=pygame.FULLSCREEN, vsync=True)
 
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("orange")
