@@ -1,4 +1,4 @@
-from Behaviour import Behaviour
+from . import Behaviour
 
 class Scene:
   hierarchy: list[Behaviour] = []

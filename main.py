@@ -1,9 +1,10 @@
 import pygame
-import modan
+from src import modan
+
 print("Initializing game...")
 
-modan.init()
 pygame.init()
+display = modan.Display()
 
 screen = pygame.display.set_mode((1024, 768), vsync=True)
 display_info = pygame.display.Info()

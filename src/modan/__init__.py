@@ -1,7 +1,9 @@
-# modan is a helper/boostrapper for pygame
-print("initializing modan...")
+# modan is my helper/boostrapper for pygame
 
-# __all__ = []
+from .Display import Display
+from .Scene import Scene
+from .Behaviour import Behaviour
 
-def init():
-  pass
+__all__ = ['Behaviour', 'Display', 'Scene']
+
+print("Welcome to modan!")
