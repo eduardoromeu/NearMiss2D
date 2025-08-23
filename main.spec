@@ -1,11 +1,14 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+asset_files = [
+  ("./src/", ".")
+  ]
 
 a = Analysis(
     ['main.py', 'main.spec'],
     pathex=[],
     binaries=[],
-    datas=[("./src/", ".")],
+    datas=asset_files,
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

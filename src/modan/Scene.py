@@ -1,5 +1,6 @@
 from . import Behaviour
 
+# make it abstract 
 class Scene:
 
   def __init__(self, name: str = "Default") -> None:
