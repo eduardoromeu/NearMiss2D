@@ -1,9 +1,8 @@
 import pygame
-from .Behaviour import Behaviour
 
-class Display(Behaviour):
+class Display():
   
-  def start(self):
+  def __init__(self):
     self.screen = pygame.display.set_mode((1024, 768), vsync=True)
     self.clock = pygame.time.Clock()
     self.display_info = pygame.display.Info()
@@ -19,9 +18,6 @@ class Display(Behaviour):
     pygame.display.flip()
 
     self.clock.tick(60)  # limits FPS to 60
-
-  def late_update(self):
-    return super().late_update()
 
   @staticmethod
   def toggle_fullscreen():

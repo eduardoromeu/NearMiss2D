@@ -2,9 +2,9 @@ import pygame
 from .Behaviour import Behaviour
 from .Display import Display
 
-class Input(Behaviour):
+class Input():
   
-  def start(self):
+  def __init__(self):
     pass
 
   def update(self):
@@ -12,11 +12,9 @@ class Input(Behaviour):
     # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
+            from .GameManager import GameManager
+            GameManager.running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_F11:
               Display.toggle_fullscreen()
-
-  def late_update(self):
-    return super().late_update()
     

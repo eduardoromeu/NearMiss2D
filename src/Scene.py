@@ -1,4 +1,4 @@
-from . import Behaviour
+from .Behaviour import Behaviour
 
 # make it abstract 
 class Scene:

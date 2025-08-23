@@ -1,7 +1,7 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 asset_files = [
-  ("./src/", ".")
+  ("./assets/", ".")
   ]
 
 a = Analysis(
@@ -36,7 +36,7 @@ exe = EXE(
     codesign_identity=None,
     entitlements_file=None,
     icon="./src/assets/appicon.ico",
-    contents_directory="src"
+    contents_directory="assets"
 )
 coll = COLLECT(
     exe,

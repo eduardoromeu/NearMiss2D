@@ -1,4 +1,3 @@
-from src import modan
-import pygame
+from src.GameManager import GameManager
 
-print("Initializing game...")
+game_manager = GameManager()
