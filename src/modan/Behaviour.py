@@ -4,14 +4,17 @@ class Behaviour(ABC):
 
   isActive: bool = False
 
-  def __init__(self) -> None:
-    self.Start()
-
+  def __init__(self, name: str = 'bhvr') -> None:
+    self.start()
 
   @abstractmethod
-  def Start(self):
+  def start(self): # Call when behaviour is instanced
     pass
 
   @abstractmethod
-  def Update(self):
+  def update(self): # Call once per game loop iteration
+    pass
+
+  @abstractmethod
+  def late_update(self): # Call after update
     pass
