@@ -1,4 +1,6 @@
 import pygame
+
+from .Scenes.MainMenu import MainMenu
 from .Scene import Scene
 from .Display import Display
 from .Input import Input
@@ -6,7 +8,7 @@ from .Input import Input
 class GameManager:
 
   # Currently active scene
-  active_scene: Scene = Scene()
+  active_scene: Scene = MainMenu("MainMenu")
   running = True
 
   def __init__(self) -> None:
@@ -21,12 +23,14 @@ class GameManager:
   def run(self):
     # Game loop
     while GameManager.running:
-      # update managers
+      # update inputs
       self.display_manager.update()
-      self.input_manager.update()
 
       # update scene
       if GameManager.active_scene is not None:
         GameManager.active_scene.game_loop()
+      
+      # update display
+      self.input_manager.update()
 
     pygame.quit()

@@ -8,16 +8,14 @@ class Display():
     self.display_info = pygame.display.Info()
 
   def update(self):
-    # fill the screen with a color to wipe away anything from last frame
-    self.screen.fill("orange")
-
-    # RENDER YOUR GAME HERE
+    self.clock.tick(60)  # limits FPS to 60
+   
+    # display window info
     pygame.display.set_caption(f'NearMiss2d {pygame.display.get_driver()} @ {round(self.clock.get_fps())} fps ({self.display_info.current_w}, {self.display_info.current_h})')
 
-    # flip() the display to put your work on screen
+    # update screen
     pygame.display.flip()
 
-    self.clock.tick(60)  # limits FPS to 60
 
   @staticmethod
   def toggle_fullscreen():

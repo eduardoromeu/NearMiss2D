@@ -1,5 +1,4 @@
 import pygame
-from .Behaviour import Behaviour
 from .Display import Display
 
 class Input():

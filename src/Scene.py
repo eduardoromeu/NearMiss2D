@@ -1,7 +1,7 @@
+from abc import ABC, abstractmethod
 from .Behaviour import Behaviour
 
-# make it abstract 
-class Scene:
+class Scene(ABC):
 
   def __init__(self, name: str = "Default") -> None:
     print(f"Loading scene {name}")
@@ -9,6 +9,8 @@ class Scene:
     
     # list of behaviours in this scene
     self.hierarchy: list[Behaviour] = []
+
+    self.init()
 
   def game_loop(self):
     for behaviour in self.hierarchy:
@@ -19,3 +21,7 @@ class Scene:
 
   def add(self, object: Behaviour):
     self.hierarchy.append(object)
+
+  @abstractmethod
+  def init(self):
+    pass
