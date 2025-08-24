@@ -1,3 +1,3 @@
-from src.GameManager import GameManager
+from src.Game import Game
 
-game_manager = GameManager()
+game_manager = Game()

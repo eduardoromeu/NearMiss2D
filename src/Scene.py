@@ -10,7 +10,7 @@ class Scene(ABC):
     # list of behaviours in this scene
     self.hierarchy: list[Behaviour] = []
 
-    self.init()
+    # self.init()
 
   def game_loop(self):
     for behaviour in self.hierarchy:

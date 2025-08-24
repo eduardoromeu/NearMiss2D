@@ -1,11 +1,13 @@
 import pygame
 
 class Display():
-  
+
   def __init__(self):
     self.screen = pygame.display.set_mode((1024, 768), vsync=True)
     self.clock = pygame.time.Clock()
     self.display_info = pygame.display.Info()
+    icon = pygame.image.load('./assets/logo-pixel.png')
+    pygame.display.set_icon(icon)
 
   def update(self):
     self.clock.tick(60)  # limits FPS to 60
@@ -15,7 +17,6 @@ class Display():
 
     # update screen
     pygame.display.flip()
-
 
   @staticmethod
   def toggle_fullscreen():
