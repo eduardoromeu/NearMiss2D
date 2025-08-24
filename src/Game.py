@@ -15,7 +15,7 @@ class Game:
 
   def __init__(self) -> None:
     print("Initializing game...")
-    manager = self
+    Game.manager = self
     self.display = Display()
     self.input = Input()
     pygame.init()
