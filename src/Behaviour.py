@@ -5,6 +5,7 @@ class Behaviour(ABC):
   isActive: bool = False
 
   def __init__(self, name: str = 'NewBehaviour') -> None:
+    self.name = name
     self.start()
 
   @abstractmethod

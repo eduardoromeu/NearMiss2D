@@ -1,9 +1,11 @@
 import pygame
 from src.Behaviour import Behaviour
 
-class GameSprite(pygame.sprite.Sprite, Behaviour):
+class GameSprite(Behaviour, pygame.sprite.Sprite):
 
   def start(self): # Call when behaviour is instanced
+    self.image = pygame.Surface((0, 0))
+    self.rect = self.image.get_rect()
     pass
 
   def update(self): # Call once per game loop iteration

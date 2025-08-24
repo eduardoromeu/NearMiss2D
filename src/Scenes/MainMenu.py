@@ -1,23 +1,16 @@
 import pygame
 
-from src.Objects.GameSprite import GameSprite
 from ..Scene import Scene
-from ..Objects.Car import Car
+from ..Objects.PlayerCar import Car
+from ..Objects.Road import Road
 
 class MainMenu(Scene):
 
   def init(self):
-    newCar = Car()
-    self.add(newCar)
+    menuBg = Road("MenuBg")
+    scaled_bg = pygame.transform.scale(menuBg.image, (1024, 768))
+    menuBg.image = scaled_bg
+    self.add(menuBg)
     pass
-
-  def game_loop(self):
-    for behaviour in self.hierarchy:
-      behaviour.update()
-      if(isinstance(behaviour, Car)):
-        self.canvas.blit(behaviour.image, behaviour.image.get_rect())
-    
-    for behaviour in self.hierarchy:
-      behaviour.late_update()
 
   
