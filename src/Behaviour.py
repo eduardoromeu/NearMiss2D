@@ -8,14 +8,24 @@ class Behaviour(ABC):
     self.name = name
     self.start()
 
+  # use to subscribe events?
+  def __init_subclass__(cls) -> None:
+    return super().__init_subclass__()
+
+  def set_scene(self, scene):
+    self.scene = scene
+
   @abstractmethod
   def start(self): # Call when behaviour is instanced
+    pass
+
+  def on_enable(self): # Call when behaviour is added to scene
     pass
 
   @abstractmethod
   def update(self): # Call once per game loop iteration
     pass
 
-  @abstractmethod
+  # @abstractmethod
   def late_update(self): # Call after update
     pass

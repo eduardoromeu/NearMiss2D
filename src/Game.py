@@ -27,13 +27,13 @@ class Game:
     # Game loop
     while Game.running:
       # update inputs
-      self.display.update()
+      self.input.update()
 
       # update scene
       if self.active_scene is not None:
         self.active_scene.game_loop()
       
       # update display
-      self.input.update()
+      self.display.update()
 
     pygame.quit()

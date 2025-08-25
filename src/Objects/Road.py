@@ -4,7 +4,7 @@ from .GameSprite import GameSprite
 class Road(GameSprite):
 
   def start(self): # Call when behaviour is instanced
-    self.image = pygame.image.load('./assets/Sprites/Roads/road1.png').convert_alpha()
+    self.image = pygame.image.load('./assets/Sprites/Roads/road1.png').convert()
     self.rect = self.image.get_rect()
     # Game.manager.display.screen.blit(newcar, newcar.get_rect(left=0, top=0))
 

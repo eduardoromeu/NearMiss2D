@@ -6,7 +6,7 @@ class Display():
     self.screen = pygame.display.set_mode((1024, 768), vsync=True)
     self.clock = pygame.time.Clock()
     self.display_info = pygame.display.Info()
-    icon = pygame.image.load('./assets/logo-pixel.png')
+    icon = pygame.image.load('./assets/logo-pixel.png').convert_alpha()
     pygame.display.set_icon(icon)
 
   def update(self):
