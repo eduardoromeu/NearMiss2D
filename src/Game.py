@@ -3,44 +3,46 @@ from typing import Optional
 
 from .Scene import Scene
 from .Scenes.MainMenu import MainMenu
+from .Scenes.Gameplay import Gameplay
 from .Display import Display
 from .Input import Input
 
 class Game:
 
-  manager : 'Game, None' = None
-  
-  # Currently active scene
-  running = True
+    manager: 'Game, None' = None
 
-  def __init__(self) -> None:
-    print("Initializing game...")
-    Game.manager = self
-    self.display = Display()
-    self.input = Input()
-    pygame.init()
-    self.active_scene: Scene = MainMenu("MainMenu", self.display.screen)
-    self.active_scene.init()
-    self.run()
+    # Currently active scene
+    running = True
 
-  def run(self):
-    # Game loop
-    while Game.running:
-      # update events
-      for event in pygame.event.get():
-        if self.active_scene is not None:
-          self.active_scene.handle_event(event)
-        if event.type == pygame.QUIT:
-          Game.running = False
+    def __init__(self) -> None:
+        print("Initializing game...")
+        Game.manager = self
+        self.display = Display()
+        self.input = Input()
+        pygame.init()
+        Scene.load_scene(MainMenu("MainMenu", self.display.screen))
+        self.run()
 
-      # update inputs
-      self.input.update()
+    def run(self):
+        # Game loop
+        while Game.running:
+            # update events
+            for event in pygame.event.get():
+                # pass events to scene
+                if Scene.active_scene is not None:
+                    Scene.active_scene.handle_event(event)
+                if event.type == pygame.QUIT:
+                    Game.running = False
 
-      # update scene
-      if self.active_scene is not None:
-        self.active_scene.game_loop()
-      
-      # update display
-      self.display.update()
+            # update inputs
+            self.input.update()
 
-    pygame.quit()
+            # update scene
+            if Scene.active_scene is not None:
+                Scene.active_scene.game_loop()
+
+            # update display
+            self.display.update()
+
+        # exit game
+        pygame.quit()

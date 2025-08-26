@@ -2,6 +2,7 @@ from collections.abc import Callable
 
 import pygame
 
+from .Gameplay import Gameplay
 from ..Input import Input
 from ..Scene import Scene
 from ..Objects.PlayerCar import Car
@@ -65,7 +66,7 @@ class MainMenuBehaviour(Behaviour):
       self.scene.add(option.uitext)
     pass
 
-  def update(self): # Call once per game loop iteration
+  def update(self):
     pass
 
   def next_option(self):
@@ -88,7 +89,8 @@ class MainMenuBehaviour(Behaviour):
       option.uitext.rect.centery = 400 + (option_index * 64)
 
   def start_game(self):
-    print("Starting game")
+    print("Starting gameplay")
+    Scene.load_scene(Gameplay("Gameplay", self.scene.window))
 
   def quit_game(self):
     pygame.event.post(pygame.event.Event(pygame.QUIT))

@@ -19,8 +19,8 @@ Check out other projects we did together 👉 [linktr.ee/codeitstudio/](https://
 
 ###### TODO:
 
-* Menu interaction
-* Scene transition
+* ~~Basic Menu interaction~~
+* ~~Scene transition~~
 * Road background movement
 * Player car movement
 * Traffic cars
