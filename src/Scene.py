@@ -23,7 +23,7 @@ class Scene(ABC):
       behaviour.update()
 
       # Draw sprites
-      if(isinstance(behaviour, GameSprite)):
+      if isinstance(behaviour, GameSprite):
         self.canvas.blit(behaviour.image, behaviour.rect)
         # print(f'Drawing {behaviour.name}')
     
@@ -32,10 +32,10 @@ class Scene(ABC):
     for behaviour in self.hierarchy:
       behaviour.late_update()
 
-  def add(self, object: Behaviour):
-    self.hierarchy.append(object)
-    object.set_scene(self)
-    object.on_enable()
+  def add(self, obj: Behaviour):
+    self.hierarchy.append(obj)
+    obj.set_scene(self)
+    obj.on_enable()
 
   @abstractmethod
   def init(self):

@@ -35,7 +35,7 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon="./src/assets/appicon.ico",
+    icon="./assets/appicon.ico",
     contents_directory="assets"
 )
 coll = COLLECT(
