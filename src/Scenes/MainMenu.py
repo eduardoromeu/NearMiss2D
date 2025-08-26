@@ -1,5 +1,8 @@
+from collections.abc import Callable
+
 import pygame
 
+from ..Input import Input
 from ..Scene import Scene
 from ..Objects.PlayerCar import Car
 from ..Objects.Road import Road
@@ -9,37 +12,86 @@ class MainMenu(Scene):
 
   def init(self):
     # Draw menu bg
-    menuBg = Road("MenuBg")
-    scaled_bg = pygame.transform.scale(menuBg.image, (1024, 768))
-    menuBg.image = scaled_bg
-    self.add(menuBg)
+    menu_bg = Road("MenuBg")
+    scaled_bg = pygame.transform.scale(menu_bg.image, (1024, 768))
+    menu_bg.image = scaled_bg
+    self.add(menu_bg)
 
     # Game logo
     game_logo = GameLogo("GameLogo")
     self.add(game_logo)
 
     # Menu Behaviour
-    menuBhv = MainMenuBehaviour()
-    self.add(menuBhv)
+    menu_behaviour = MainMenuBehaviour("MainMenuBehaviour")
+    self.add(menu_behaviour)
 
+  def handle_event(self, event: pygame.event.Event) -> None:
+    if event.type == pygame.KEYDOWN:
+      menu_behaviour = self.get_object("MainMenuBehaviour")
+      if isinstance(menu_behaviour, MainMenuBehaviour):
+        if event.key == pygame.K_UP:
+          menu_behaviour.prev_option()
+        if event.key == pygame.K_DOWN:
+          menu_behaviour.next_option()
+        # Enter selected option
+        if event.key == pygame.K_RETURN:
+          menu_behaviour.select_active_option()
+
+# Class for a menu option
+class MenuOption:
+  def __init__(self, text: str, callback: Callable) -> None:
+    self.text = text
+    self.callback = callback
+    self.uitext: UIText|None = None
 
 from ..Behaviour import Behaviour
 class MainMenuBehaviour(Behaviour):
-  
+
   def start(self):
     self.selection = 0
+    self.options = [
+      MenuOption('Start Game', self.start_game),
+      MenuOption('Exit Game', self.quit_game)
+    ]
 
   def on_enable(self): # Call when behaviour is instanced
     # Menu Text
-    start_text = UIText("Start Game", 56, font_name="Pretendard", name="start-text")
-    start_text.rect.centerx = 512
-    start_text.rect.centery = 400
-    self.scene.add(start_text)
-    
+    for option in self.options:
+      option_index = self.options.index(option)
+      col = pygame.Color('orange') if option_index == self.selection else pygame.Color('whitesmoke')
+      option.uitext = UIText(option.text, 56, color=col, name=f"option-text-{option_index}")
+      option.uitext.rect.centerx = 512
+      option.uitext.rect.centery = 400 + (option_index * 64)
+      self.scene.add(option.uitext)
     pass
 
   def update(self): # Call once per game loop iteration
     pass
+
+  def next_option(self):
+    self.selection = (self.selection + 1) % len(self.options)
+    self.update_options()
+
+  def prev_option(self):
+    self.selection = (self.selection - 1) % len(self.options)
+    self.update_options()
+
+  def select_active_option(self):
+    self.options[self.selection].callback()
+
+  def update_options(self):
+    for option in self.options:
+      option_index = self.options.index(option)
+      option.uitext.color = pygame.Color('orange') if option_index == self.selection else pygame.Color('whitesmoke')
+      option.uitext.update_render()
+      option.uitext.rect.centerx = 512
+      option.uitext.rect.centery = 400 + (option_index * 64)
+
+  def start_game(self):
+    print("Starting game")
+
+  def quit_game(self):
+    pygame.event.post(pygame.event.Event(pygame.QUIT))
 
 from ..Objects.GameSprite import GameSprite
 class GameLogo(GameSprite):
@@ -47,9 +99,21 @@ class GameLogo(GameSprite):
     logo_img = pygame.image.load('./assets/logo-pixel.png').convert_alpha()
     
     self.image = pygame.transform.scale(logo_img, (300, 300))
+    self.original_image = self.image
     self.rect = self.image.get_rect()
     self.rect.centerx = 512
+    self.rect.centery = 150
+    self.angle = 0
 
   def update(self):
-    self.rect.centerx = 512
-    # print('Updating game logo!')
+    pressed_key = pygame.key.get_pressed()
+    if pressed_key[pygame.K_RIGHT]:
+      self.angle -= .05
+    if pressed_key[pygame.K_LEFT]:
+      self.angle += .05
+
+    self.image = pygame.transform.rotate(self.original_image, self.angle)
+    # keep image location
+    old_center = self.rect.center
+    self.rect = self.image.get_rect()
+    self.rect.center = old_center

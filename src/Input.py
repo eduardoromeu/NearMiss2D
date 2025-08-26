@@ -2,18 +2,23 @@ import pygame
 from .Display import Display
 
 class Input():
-  
-  def __init__(self):
-    pass
+    pressed_keys = []
 
-  def update(self):
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            from .Game import Game
-            Game.running = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_F11:
-              Display.toggle_fullscreen()
-    
+    def __init__(self):
+        pass
+
+    def update(self):
+        Input.pressed_keys = pygame.key.get_pressed()
+        if Input.is_key_pressed(pygame.K_F11):
+            Display.toggle_fullscreen()
+
+    @classmethod
+    def is_key_pressed(cls, key) -> bool:
+        return cls.pressed_keys[key]
+
+    @classmethod
+    def get_keydown_event(cls, key) -> bool:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                return event.key == key
+        return False

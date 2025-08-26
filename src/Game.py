@@ -8,7 +8,7 @@ from .Input import Input
 
 class Game:
 
-  manager : 'Game' = None # pyright: ignore[reportAssignmentType]
+  manager : 'Game, None' = None
   
   # Currently active scene
   running = True
@@ -26,6 +26,13 @@ class Game:
   def run(self):
     # Game loop
     while Game.running:
+      # update events
+      for event in pygame.event.get():
+        if self.active_scene is not None:
+          self.active_scene.handle_event(event)
+        if event.type == pygame.QUIT:
+          Game.running = False
+
       # update inputs
       self.input.update()
 

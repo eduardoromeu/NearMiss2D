@@ -5,6 +5,7 @@ class GameSprite(Behaviour, pygame.sprite.Sprite):
   def __init__(self, name: str = 'NewBehaviour', position: tuple = (0,0)) -> None:
     super().__init__(name)
     self.position = position
+    self.rotation = 0
 
   def start(self): # Call when behaviour is instanced
     self.image = pygame.Surface((0, 0))

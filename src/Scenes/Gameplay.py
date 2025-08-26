@@ -1,9 +1,9 @@
 import pygame
 from ..Scene import Scene
 
-class Level1(Scene):
+class Gameplay(Scene):
 
   def init(self):
-    pass
+    print('started gameplay scene')
 
   

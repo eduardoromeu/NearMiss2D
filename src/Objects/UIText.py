@@ -5,17 +5,19 @@ from .GameSprite import GameSprite
 
 class UIText(GameSprite):
 
-  def __init__(self, text: str, size: int, color: tuple = (255, 255, 255), font_name = "Arial", name: str = 'NewText',) -> None:
+  def __init__(self, text: str, size: int, color: tuple|pygame.Color = (255, 255, 255),
+               font_name = "Pretendard", name: str = 'NewText', bg_color = None) -> None:
     super().__init__(name)
     self.text = text
     self.size = size
     self.color = color
     self.font_name = font_name
-    self._update_text()
+    self.bg_color = bg_color
+    self.update_render()
 
-  def _update_text(self):
+  def update_render(self):
     self.font: Font = pygame.font.SysFont(name=self.font_name, size=self.size)
-    self.image: Surface = self.font.render(self.text, True, self.color).convert_alpha()
+    self.image: Surface = self.font.render(self.text, True, self.color, self.bg_color).convert_alpha()
     self.rect: Rect = self.image.get_rect()
 
   def start(self): # Call when behaviour is instanced

@@ -1,3 +1,4 @@
+import pygame
 from pygame import Surface
 from abc import ABC, abstractmethod
 from .Behaviour import Behaviour
@@ -18,9 +19,11 @@ class Scene(ABC):
     window.blit(self.canvas, self.canvas.get_rect())
 
   def game_loop(self):
+    # print('game loop start')
     # Update behaviours
     for behaviour in self.hierarchy:
       behaviour.update()
+      # print(f'Updating {behaviour.name}')
 
       # Draw sprites
       if isinstance(behaviour, GameSprite):
@@ -32,10 +35,21 @@ class Scene(ABC):
     for behaviour in self.hierarchy:
       behaviour.late_update()
 
+    # print('game loop end')
+
+  def handle_event(self, event: pygame.event.Event) -> None:
+    pass
+
   def add(self, obj: Behaviour):
     self.hierarchy.append(obj)
     obj.set_scene(self)
     obj.on_enable()
+
+  def get_object(self, name: str) -> Behaviour|None:
+    for behaviour in self.hierarchy:
+      if behaviour.name == name:
+        return behaviour
+    return None
 
   @abstractmethod
   def init(self):
