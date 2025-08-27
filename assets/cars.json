@@ -10,7 +10,7 @@
       "image_path" : "./assets/Sprites/Cars/NEODUOL/NeoDuol_BLACK.png"
       }
     ],
-    "acceleration" : 1,
+    "accel" : 1,
     "max_speed" : 30,
     "weight" : 5
   }
