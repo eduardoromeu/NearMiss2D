@@ -12,9 +12,10 @@ class MainMenu(Scene):
 
   def init(self):
     # Draw menu bg
-    menu_bg = Road("MenuBg", position=(0, 0), scale=(1024, 768))
-    menu_bg2 = Road("MenuBg2", position=(0, -768), scale=(1024, 768))
-    self.add(menu_bg, menu_bg2)
+    menu_bg = Road("MenuBg", position=(0, 0), scale=(1024, 682), speed=2)
+    menu_bg2 = Road("MenuBg2", position=(0, 682), scale=(1024, 682), speed=2)
+    menu_bg3 = Road("MenuBg2", position=(0, -682), scale=(1024, 682), speed=2)
+    self.add(menu_bg, menu_bg2, menu_bg3)
 
     # Game logo
     game_logo = GameLogo("GameLogo", position=(512, 150))
@@ -92,6 +93,7 @@ class MainMenuBehaviour(Behaviour):
   def quit_game(self):
     pygame.event.post(pygame.event.Event(pygame.QUIT))
 
+from ..Input import Input
 from ..Objects.GameSprite import GameSprite
 class GameLogo(GameSprite):
 
@@ -105,10 +107,9 @@ class GameLogo(GameSprite):
     self.angle = 0
 
   def update(self):
-    pressed_key = pygame.key.get_pressed()
-    if pressed_key[pygame.K_RIGHT]:
+    if Input.is_key_pressed(pygame.K_RIGHT):
       self.angle -= .05
-    if pressed_key[pygame.K_LEFT]:
+    if Input.is_key_pressed(pygame.K_LEFT):
       self.angle += .05
 
     self.image = pygame.transform.rotate(self.original_image, self.angle)

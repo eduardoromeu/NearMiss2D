@@ -21,6 +21,8 @@ Check out other projects we did together 👉 [linktr.ee/codeitstudio/](https://
 
 * ~~Basic Menu interaction~~
 * ~~Scene transition~~
-* Road background movement
+* ~~Road background movement~~
+* Load cars and roads from json files
+* Zoom game view out
 * Player car movement
 * Traffic cars

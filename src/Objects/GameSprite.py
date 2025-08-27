@@ -15,6 +15,8 @@ class GameSprite(Behaviour, pygame.sprite.Sprite):
 
   def start(self): # Call when behaviour is instanced
     self.image = pygame.Surface((0, 0))
+    if self.scale != (0, 0):
+      self.image = pygame.transform.smoothscale(self.image, self.scale)
     self.rect = self.image.get_rect(center=self.position)
     pass
 

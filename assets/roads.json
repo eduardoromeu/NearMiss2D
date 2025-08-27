@@ -1,0 +1,18 @@
+{
+  "TwoLane" : {
+    "image_path" : "/assets/Sprites/Roads/road1.png",
+    "min_speed" : 2,
+    "lanes" : {
+      "up" : [1016],
+      "down" : [518]
+    }
+  },
+  "Highway" : {
+    "image_path" : "/assets/Sprites/Roads/highway.jpg",
+    "min_speed" : 5,
+    "lanes" : {
+      "up" : [948, 1338],
+      "down" : [150, 540]
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "Neo Duol" : {
+    "paints" : [
+      {
+      "name" : "Black",
+      "image_path" : "./assets/Sprites/Cars/NEODUOL/NeoDuol_BLACK.png"
+      },
+      {
+      "name" : "Black",
+      "image_path" : "./assets/Sprites/Cars/NEODUOL/NeoDuol_BLACK.png"
+      }
+    ],
+    "acceleration" : 1,
+    "max_speed" : 30,
+    "weight" : 5
+  }
+}
