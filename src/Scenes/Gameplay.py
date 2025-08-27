@@ -1,11 +1,20 @@
 import pygame
+
 from ..Scene import Scene
+from ..Objects.Road import Road
+from ..Objects.UIText import UIText
 
 class Gameplay(Scene):
 
   def init(self):
-    print('started gameplay scene')
+    menu_bg = Road("MenuBg", position=(0, 0), scale=(1024, 768))
+    menu_bg2 = Road("MenuBg", position=(0, -513), scale=(1024, 768))
+    self.add(menu_bg)
+    self.add(menu_bg2)
 
   def handle_event(self, event: pygame.event.Event) -> None:
-    pass
+    if event.type == pygame.KEYDOWN:
+      if event.key == pygame.K_ESCAPE:
+        from .MainMenu import MainMenu
+        Scene.load_scene(MainMenu("MainMenu", self.window))
   

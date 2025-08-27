@@ -3,9 +3,8 @@ from collections.abc import Callable
 import pygame
 
 from .Gameplay import Gameplay
-from ..Input import Input
 from ..Scene import Scene
-from ..Objects.PlayerCar import Car
+# from ..Objects.PlayerCar import Car
 from ..Objects.Road import Road
 from ..Objects.UIText import UIText
 
@@ -13,10 +12,10 @@ class MainMenu(Scene):
 
   def init(self):
     # Draw menu bg
-    menu_bg = Road("MenuBg")
-    scaled_bg = pygame.transform.scale(menu_bg.image, (1024, 768))
-    menu_bg.image = scaled_bg
+    menu_bg = Road("MenuBg", position=(0, 0), scale=(1024, 768))
+    menu_bg2 = Road("MenuBg", position=(0, -513), scale=(1024, 768))
     self.add(menu_bg)
+    self.add(menu_bg2)
 
     # Game logo
     game_logo = GameLogo("GameLogo", position=(512, 150))
@@ -89,7 +88,6 @@ class MainMenuBehaviour(Behaviour):
       option.uitext.rect.centery = 384 + (option_index * 64)
 
   def start_game(self):
-    print("Starting gameplay")
     Scene.load_scene(Gameplay("Gameplay", self.scene.window))
 
   def quit_game(self):

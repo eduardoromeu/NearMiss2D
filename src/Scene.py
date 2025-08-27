@@ -50,10 +50,11 @@ class Scene(ABC):
     def handle_event(self, event: pygame.event.Event) -> None:
         pass
 
-    def add(self, obj: Behaviour):
-        self.hierarchy.append(obj)
-        obj.set_scene(self) # Set object current scene
-        obj.on_enable()
+    def add(self, *objs: Behaviour):
+        for obj in objs:
+            self.hierarchy.append(obj)
+            obj.set_scene(self) # Set object current scene
+            obj.on_enable()
 
     def get_object(self, name: str) -> Behaviour | None:
         for behaviour in self.hierarchy:
