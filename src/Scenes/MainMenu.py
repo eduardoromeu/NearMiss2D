@@ -13,9 +13,8 @@ class MainMenu(Scene):
   def init(self):
     # Draw menu bg
     menu_bg = Road("MenuBg", position=(0, 0), scale=(1024, 768))
-    menu_bg2 = Road("MenuBg", position=(0, -513), scale=(1024, 768))
-    self.add(menu_bg)
-    self.add(menu_bg2)
+    menu_bg2 = Road("MenuBg2", position=(0, -768), scale=(1024, 768))
+    self.add(menu_bg, menu_bg2)
 
     # Game logo
     game_logo = GameLogo("GameLogo", position=(512, 150))

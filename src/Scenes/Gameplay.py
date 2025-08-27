@@ -7,8 +7,8 @@ from ..Objects.UIText import UIText
 class Gameplay(Scene):
 
   def init(self):
-    menu_bg = Road("MenuBg", position=(0, 0), scale=(1024, 768))
-    menu_bg2 = Road("MenuBg", position=(0, -513), scale=(1024, 768))
+    menu_bg = Road("MenuBg", position=(0, 0))
+    menu_bg2 = Road("MenuBg", position=(0, -513))
     self.add(menu_bg)
     self.add(menu_bg2)
 
