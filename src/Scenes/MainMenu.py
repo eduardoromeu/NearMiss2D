@@ -19,7 +19,7 @@ class MainMenu(Scene):
     self.add(menu_bg)
 
     # Game logo
-    game_logo = GameLogo("GameLogo")
+    game_logo = GameLogo("GameLogo", position=(512, 150))
     self.add(game_logo)
 
     # Menu Behaviour
@@ -62,7 +62,7 @@ class MainMenuBehaviour(Behaviour):
       col = pygame.Color('orange') if option_index == self.selection else pygame.Color('whitesmoke')
       option.uitext = UIText(option.text, 56, color=col, name=f"option-text-{option_index}")
       option.uitext.rect.centerx = 512
-      option.uitext.rect.centery = 400 + (option_index * 64)
+      option.uitext.rect.centery = 384 + (option_index * 64)
       self.scene.add(option.uitext)
     pass
 
@@ -86,7 +86,7 @@ class MainMenuBehaviour(Behaviour):
       option.uitext.color = pygame.Color('orange') if option_index == self.selection else pygame.Color('whitesmoke')
       option.uitext.update_render()
       option.uitext.rect.centerx = 512
-      option.uitext.rect.centery = 400 + (option_index * 64)
+      option.uitext.rect.centery = 384 + (option_index * 64)
 
   def start_game(self):
     print("Starting gameplay")
@@ -97,14 +97,14 @@ class MainMenuBehaviour(Behaviour):
 
 from ..Objects.GameSprite import GameSprite
 class GameLogo(GameSprite):
+
   def start(self):
     logo_img = pygame.image.load('./assets/logo-pixel.png').convert_alpha()
-    
     self.image = pygame.transform.scale(logo_img, (300, 300))
     self.original_image = self.image
-    self.rect = self.image.get_rect()
-    self.rect.centerx = 512
-    self.rect.centery = 150
+    self.rect = self.image.get_rect(center=self.position)
+    # self.rect.centerx = 512
+    # self.rect.centery = 150
     self.angle = 0
 
   def update(self):

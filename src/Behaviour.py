@@ -4,8 +4,10 @@ class Behaviour(ABC):
 
   isActive: bool = False
 
-  def __init__(self, name: str = 'NewBehaviour') -> None:
+  def __init__(self, name: str = 'NewBehaviour', **kwargs) -> None:
     self.name = name
+    for attr, value in kwargs.items():
+      setattr(self, attr, value)
     self.start()
 
   # use to subscribe events?

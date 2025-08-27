@@ -36,7 +36,6 @@ class Game:
 
             # update inputs
             self.input.update()
-
             # update scene
             if Scene.active_scene is not None:
                 Scene.active_scene.game_loop()
