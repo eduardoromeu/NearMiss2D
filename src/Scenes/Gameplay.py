@@ -13,7 +13,7 @@ class Gameplay(Scene):
     road3 = Road("road3", position=(0, 682), scale=(1024, 682))
     self.add(road1, road2, road3)
 
-    newcar = PlayerCar("PlayerCar", position=(350, 400), scale=(270, 480))
+    newcar = PlayerCar("PlayerCar", position=(350, 400), scale=(247, 508))
     self.add(newcar)
 
   def handle_event(self, event: pygame.event.Event) -> None:

@@ -2,12 +2,12 @@
   "Neo Duol" : {
     "paints" : [
       {
-      "name" : "Black",
-      "image_path" : "./assets/Sprites/Cars/NEODUOL/NeoDuol_BLACK.png"
+      "name" : "Blue",
+      "image_path" : "./assets/Sprites/Cars/NEODUOL/NeoDuol_BLUE.png"
       },
       {
-      "name" : "Black",
-      "image_path" : "./assets/Sprites/Cars/NEODUOL/NeoDuol_BLACK.png"
+      "name" : "Red",
+      "image_path" : "./assets/Sprites/Cars/NEODUOL/NeoDuol_RED.png"
       }
     ],
     "accel" : 1,

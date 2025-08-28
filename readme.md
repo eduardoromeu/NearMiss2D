@@ -24,5 +24,6 @@ Check out other projects we did together 👉 [linktr.ee/codeitstudio/](https://
 * ~~Road background movement~~
 * Load cars and roads from json files
 * Zoom game view out
+* Crop car sprites to fix hitbox
 * Player car movement
 * Traffic cars
