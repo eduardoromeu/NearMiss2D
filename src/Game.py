@@ -16,10 +16,10 @@ class Game:
 
     def __init__(self) -> None:
         print("Initializing game...")
+        pygame.init()
         Game.manager = self
         self.display = Display()
         self.input = Input()
-        pygame.init()
         Scene.load_scene(MainMenu("MainMenu", self.display.screen))
         self.run()
 

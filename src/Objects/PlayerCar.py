@@ -6,10 +6,10 @@ from ..Input import Input
 class PlayerCar(GameSprite):
 
   def start(self): # Call when behaviour is instanced
-    self.image = pygame.image.load('./assets/Sprites/Cars/NEODUOL/NeoDuol_BLUE_crop.png').convert_alpha()
-    if self.scale != (0, 0):
-      self.image = pygame.transform.smoothscale(self.image, self.scale)
-    self.rect = self.image.get_rect(center=self.position)
+    self.image = pygame.image.load('./assets/Sprites/Cars/NEODUOL/NeoDuol_BLUE.png').convert_alpha()
+    if not (not hasattr(self, 'rotozoom') or not (self.rotozoom != (0, 0))):
+      self.image = pygame.transform.rotozoom(self.image, self.rotozoom[0], self.rotozoom[1])
+    self.rect = self.image.get_rect(centerx=self.position[0], bottom=self.position[1])
     # Game.manager.display.screen.blit(newcar, newcar.get_rect(left=0, top=0))
 
   def update(self): # Call once per game loop iteration

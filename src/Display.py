@@ -1,9 +1,14 @@
 import pygame
+from .Consts import SCREEN_WIDTH, SCREEN_HEIGHT
 
 class Display():
 
   def __init__(self):
-    self.screen = pygame.display.set_mode((1024, 768), vsync=True)
+    self.display_info = pygame.display.Info()
+    Display.screen_width = self.display_info.current_w # monitor width
+    Display.screen_height = self.display_info.current_h # monitor height
+
+    self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), vsync=True)
     self.clock = pygame.time.Clock()
     self.display_info = pygame.display.Info()
     icon = pygame.image.load('./assets/logo-pixel.png').convert_alpha()
