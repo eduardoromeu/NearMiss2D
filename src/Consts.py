@@ -1,3 +1,11 @@
+# D
+import pygame
+
+DEV_MODE = True
+
 # S
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 960
+
+# T
+TRAFFIC_SPAWN_EVENT = pygame.USEREVENT + 1

@@ -9,10 +9,16 @@ class Highway(GameSprite):
     self.image = pygame.image.load('./assets/Sprites/Roads/highway.jpg').convert()
     if self.scale != (0, 0):
       self.image = pygame.transform.smoothscale(self.image, self.scale)
+
     self.rect = self.image.get_rect(left=self.position[0], top=self.position[1])
     self.original_position = self.position
     if not hasattr(self, 'speed'):
       self.speed = 5
+
+    self.lanes = {
+      "up": [640, 910],
+      "down": [110, 370]
+    }
 
   def update(self): # Call once per game loop iteration
     self.rect.centery += self.speed

@@ -22,8 +22,10 @@ Check out other projects we did together 👉 [linktr.ee/codeitstudio/](https://
 * ~~Basic Menu interaction~~
 * ~~Scene transition~~
 * ~~Road background movement~~
-* Load cars and roads from json files
-* Zoom game view out
-* Crop car sprites to fix hitbox
-* Player car movement
 * Traffic cars
+* Traffic collisions
+* Load cars and roads from json files
+* Sprites size adjustments
+* Crop car sprites to fix hitbox
+~~* Player car movement~~
+* Use __init__ for behaviours instead of start
