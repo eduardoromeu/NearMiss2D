@@ -12,12 +12,15 @@ class Scene(ABC):
         Scene.active_scene = scene
         Scene.active_scene.init()
 
-    def __init__(self, name: str, window: Surface) -> None:
+    def __init__(self, name: str, window: Surface, **kwargs) -> None:
         print(f"Loading scene {name}")
         self.name = name
         self.paused = False
         # list of behaviours in this scene
         self.hierarchy: list[Behaviour] = []
+
+        for attr, value in kwargs.items():
+            setattr(self, attr, value)
 
         # draws a surface to be used by the scene
         self.window = window

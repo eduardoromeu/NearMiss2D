@@ -1,5 +1,6 @@
 {
   "Neo Duol" : {
+    "mask_path" : "./assets/Sprites/Cars/NEODUOL/NeoDuol_mask.png",
     "paints" : [
       {
       "name" : "Blue",

@@ -1,11 +1,14 @@
 import pygame
 from random import randint, random
+
+from .GameOver import GammeOver
 from ..Consts import SCREEN_HEIGHT, SCREEN_WIDTH, DEV_MODE, TRAFFIC_SPAWN_EVENT
 from ..Scene import Scene
 from ..Objects.Highway import Highway
 from ..Objects.UIText import UIText
 from ..Objects.PlayerCar import PlayerCar
 from ..Objects.TrafficCar import TrafficCar
+from ..PlayerScore import PlayerScore
 
 class Gameplay(Scene):
 
@@ -42,33 +45,13 @@ class Gameplay(Scene):
         Scene.load_scene(MainMenu("MainMenu", self.window))
       if event.key == pygame.K_p:
         self.paused = False if self.paused else True
+      if DEV_MODE and event.key == pygame.K_q:
+        self.on_player_hit()
+
+  def on_player_hit(self):
+    Scene.load_scene(GammeOver("GameOver", self.window, player_score=self.player_score))
 
 from ..Behaviour import Behaviour
-class PlayerScore(Behaviour):
-  def start(self):
-    self.score = 0
-    self.last_tick = pygame.time.get_ticks()
-    if DEV_MODE:
-      self.initial_tick = pygame.time.get_ticks()
-
-  def on_enable(self):
-    self.score_txt = UIText("SCORE", 32, pygame.color.THECOLORS["whitesmoke"], bg_color=pygame.color.THECOLORS["black"], layer=2)
-    self.score_txt.rect.top = 10
-    self.score_txt.rect.centerx = round(SCREEN_WIDTH / 2)
-    self.scene.add(self.score_txt)
-
-  def update(self):
-    current_tick = pygame.time.get_ticks()
-    if current_tick - self.last_tick >= 16.66: # ensure score consistency with frame variations
-      self.last_tick = current_tick
-      self.score += 0.36 # Car is running at 80 KM/H
-      #self.scene.score_txt.text = f'SCORE {round((self.score / 1000), 3)}' # Kilometers
-      self.score_txt.text = f'SCORE: {round(self.score)}' # Meters
-      self.score_txt.update_render()
-    if DEV_MODE:
-      self.scene.debg_txt.text = f'TIME {(current_tick - self.initial_tick) / 1000}s'
-      self.scene.debg_txt.update_render()
-
 class TrafficLane(Behaviour):
   def __init__(self, lanex: int, way_up: bool, cars_speed: float = 5, name: str = 'Lane', **kwargs):
     self.name = f'Lane{lanex}' if name == 'Lane' else name
@@ -101,7 +84,9 @@ class TrafficLane(Behaviour):
 
   def update(self):
     self.player_hit = pygame.sprite.spritecollide(self.scene.player_car, self.traffic_cars,False,  pygame.sprite.collide_mask)
-
+    if self.player_hit:
+      self.scene.on_player_hit()
+      return
     # Prevents traffic cars from overlying
     traffic_list = self.traffic_cars.sprites()
     for i, tr_car in enumerate(traffic_list):
@@ -110,11 +95,12 @@ class TrafficLane(Behaviour):
           #print(f'{tr_car.name} collide with {tr_car2.name}')
           tr_car2.destroy()
 
-    self.debug_text()
     self.time_passed = pygame.time.get_ticks()
     if self.time_passed - self.start_time >= self.traffic_spawn_rate["set"]:
       self.start_time = self.time_passed
       self.check_spawn()
+
+    self.debug_text()
 
   def check_spawn(self):
     if random() < self.spawn_chance:

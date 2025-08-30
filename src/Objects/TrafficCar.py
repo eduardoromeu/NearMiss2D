@@ -20,6 +20,8 @@ class TrafficCar(GameSprite, pygame.sprite.Sprite):
     self.rect.centery += self.speed
     if self.rect.top > SCREEN_HEIGHT:
       self.destroy()
+      if hasattr(self.scene, 'player_score'):
+        self.scene.player_score.score += 50
     # simulate player braking
     if self.scene.player_car.is_braking and hasattr(self, 'lane'):
       self.speed = self.initial_speed / 1.5
