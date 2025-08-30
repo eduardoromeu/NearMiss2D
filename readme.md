@@ -27,5 +27,6 @@ Check out other projects we did together 👉 [linktr.ee/codeitstudio/](https://
 * Load cars and roads from json files
 * Sprites size adjustments
 * Crop car sprites to fix hitbox
+* Destroy objects
 ~~* Player car movement~~
 * Use __init__ for behaviours instead of start

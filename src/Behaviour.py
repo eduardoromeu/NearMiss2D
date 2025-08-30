@@ -6,6 +6,7 @@ class Behaviour(ABC):
 
   def __init__(self, name: str = 'NewBehaviour', **kwargs) -> None:
     self.name = name
+    self.scene = None
     for attr, value in kwargs.items():
       setattr(self, attr, value)
     self.start()
@@ -16,6 +17,10 @@ class Behaviour(ABC):
 
   def set_scene(self, scene):
     self.scene = scene
+
+  def destroy(self):
+    if self.scene is not None:
+      self.scene.remove(self)
 
   @abstractmethod
   def start(self): # Call when behaviour is instanced
@@ -30,4 +35,7 @@ class Behaviour(ABC):
 
   # @abstractmethod
   def late_update(self): # Call after update
+    pass
+
+  def on_disable(self):
     pass

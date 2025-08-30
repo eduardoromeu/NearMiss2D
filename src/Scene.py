@@ -56,6 +56,11 @@ class Scene(ABC):
             obj.set_scene(self) # Set object current scene
             obj.on_enable()
 
+    def remove(self, *objs: Behaviour):
+        for obj in objs:
+            self.hierarchy.remove(obj)
+            obj.on_disable()
+
     def get_object(self, name: str) -> Behaviour | None:
         for behaviour in self.hierarchy:
             if behaviour.name == name:
