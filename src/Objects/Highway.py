@@ -14,7 +14,7 @@ class Highway(GameSprite):
     self.original_position = self.position
     if not hasattr(self, 'speed'):
       self.speed = 5
-
+    self.initial_speed = self.speed
     self.lanes = {
       "up": [640, 910],
       "down": [110, 370]
@@ -24,6 +24,11 @@ class Highway(GameSprite):
     self.rect.centery += self.speed
     if self.rect.top >= self.original_position[1] + self.rect.height:
       self.rect.top = self.original_position[1]
+    if self.scene.player_car.is_braking and hasattr(self, 'lane'):
+      self.speed = self.initial_speed / 2
+      # if self.lane.way_up:
+    else:
+      self.speed = self.initial_speed
 
   def late_update(self): # Call after update
     pass

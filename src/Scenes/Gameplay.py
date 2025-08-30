@@ -27,8 +27,8 @@ class Gameplay(Scene):
 
     # self.gameplay_manager = SpawnManager()
     self.traffic_lanes = [
-      TrafficLane(110, True, 6,  "Lane1"),
-      TrafficLane(370, True, 8,  "Lane2"),
+      TrafficLane(110, True, 8,  "Lane1"),
+      TrafficLane(370, True, 10,  "Lane2"),
       TrafficLane(640, False, 4, "Lane3"),
       TrafficLane(910, False, 2, "Lane4")
     ]

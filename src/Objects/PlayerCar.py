@@ -10,7 +10,7 @@ class PlayerCar(GameSprite):
     super().__init__(name, position, scale, **kwargs)
 
   def start(self): # Call when behaviour is instanced
-    self.image = pygame.image.load('./assets/Sprites/Cars/NEODUOL/NeoDuol_BLUE.png').convert_alpha()
+    self.image = pygame.image.load('./assets/Sprites/Cars/NEODUOL/NeoDuol_ESCADA.png').convert_alpha()
     if not (not hasattr(self, 'rotozoom') or not (self.rotozoom != (0, 0))):
       self.image = pygame.transform.rotozoom(self.image, self.rotozoom[0], self.rotozoom[1])
     self.rect = self.image.get_rect(centerx=self.position[0], bottom=self.position[1])
