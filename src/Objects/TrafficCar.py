@@ -31,6 +31,6 @@ class TrafficCar(GameSprite, pygame.sprite.Sprite):
     pass
 
   def on_disable(self):
-    print(f'destroying traffic car {self.name}')
+    # print(f'destroying traffic car {self.name}')
     if hasattr(self, 'lane'):
       self.lane.traffic_cars.remove(self)

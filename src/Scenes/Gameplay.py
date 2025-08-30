@@ -52,7 +52,7 @@ class PlayerScore(Behaviour):
       self.initial_tick = pygame.time.get_ticks()
 
   def on_enable(self):
-    self.score_txt = UIText("SCORE", 24, pygame.color.THECOLORS["whitesmoke"], bg_color=pygame.color.THECOLORS["black"], layer=2)
+    self.score_txt = UIText("SCORE", 32, pygame.color.THECOLORS["whitesmoke"], bg_color=pygame.color.THECOLORS["black"], layer=2)
     self.score_txt.rect.top = 10
     self.score_txt.rect.centerx = round(SCREEN_WIDTH / 2)
     self.scene.add(self.score_txt)
@@ -63,7 +63,7 @@ class PlayerScore(Behaviour):
       self.last_tick = current_tick
       self.score += 0.36 # Car is running at 80 KM/H
       #self.scene.score_txt.text = f'SCORE {round((self.score / 1000), 3)}' # Kilometers
-      self.score_txt.text = f'DISTANCE: {round(self.score)}m' # Meters
+      self.score_txt.text = f'SCORE: {round(self.score)}' # Meters
       self.score_txt.update_render()
     if DEV_MODE:
       self.scene.debg_txt.text = f'TIME {(current_tick - self.initial_tick) / 1000}s'
@@ -100,8 +100,16 @@ class TrafficLane(Behaviour):
     pass
 
   def update(self):
-    self.player_hit = pygame.sprite.spritecollide(self.scene.player_car, self.traffic_cars,
-                                                  False,  pygame.sprite.collide_mask)
+    self.player_hit = pygame.sprite.spritecollide(self.scene.player_car, self.traffic_cars,False,  pygame.sprite.collide_mask)
+
+    # Prevents traffic cars from overlying
+    traffic_list = self.traffic_cars.sprites()
+    for i, tr_car in enumerate(traffic_list):
+      for tr_car2 in traffic_list[i + 1:]:
+        if pygame.sprite.collide_rect(tr_car, tr_car2):
+          #print(f'{tr_car.name} collide with {tr_car2.name}')
+          tr_car2.destroy()
+
     self.debug_text()
     self.time_passed = pygame.time.get_ticks()
     if self.time_passed - self.start_time >= self.traffic_spawn_rate["set"]:
@@ -120,9 +128,7 @@ class TrafficLane(Behaviour):
       self.traffic_spawn_rate["max"] -= self.spawn_rate_decrement
     self.traffic_spawn_rate["set"] = randint(self.traffic_spawn_rate["min"], self.traffic_spawn_rate["max"])
 
-    # update event timer
-    # pygame.time.set_timer(TRAFFIC_SPAWN_EVENT, self.traffic_spawn_rate["set"])
-    print(f'traffic spawned at {pygame.time.get_ticks()} in `{self.name}')
+    # print(f'traffic spawned at {pygame.time.get_ticks()} in `{self.name}')
 
     # spawn!
     tr_top_pos = randint(-450, 0)
