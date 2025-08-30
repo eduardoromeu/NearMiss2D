@@ -49,6 +49,8 @@ class Gameplay(Scene):
         self.on_player_hit()
 
   def on_player_hit(self):
+    self.player_score.running = False
+    self.player_score.save_score()
     Scene.load_scene(GammeOver("GameOver", self.window, player_score=self.player_score))
 
 from ..Behaviour import Behaviour
