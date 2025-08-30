@@ -13,23 +13,27 @@ class GammeOver(Scene):
         bg3 = Highway("Bg2", position=(0, -682), scale=(1024, 682), speed=0)
         self.add(bg, bg2, bg3)
 
-        ilust = GameOverSprite("GameOverSprite", position=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
+        ilust = GameOverSprite("GameOverSprite", position=(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 7) * 3))
         self.add(ilust)
 
         go_text = UIText("GAME OVER!", 64, color=pygame.Color('orange1'), name=f"go-text", layer=3, bg_color=pygame.Color('black'))
-        go_text.rect.center = (round(SCREEN_WIDTH / 2), round(SCREEN_HEIGHT / 4))
+        go_text.rect.center = (round(SCREEN_WIDTH / 2), round(SCREEN_HEIGHT / 7))
         self.add(go_text)
 
         if hasattr(self, "player_score"):
             score_text = UIText(f"SCORE: {round(self.player_score.score)}", 64, color=pygame.Color('whitesmoke'), name=f"score-text", bg_color=pygame.Color('black'))
-            score_text.rect.center = (round(SCREEN_WIDTH / 2), round(SCREEN_HEIGHT / 4) * 3)
+            score_text.rect.center = (round(SCREEN_WIDTH / 2), round(SCREEN_HEIGHT / 7) * 5)
             self.add(score_text)
+
+        key_text = UIText("PRESS ANY KEY TO CONTINUE", 58, color=pygame.Color('whitesmoke'), name=f"key-text", layer=3, bg_color=pygame.Color('black'))
+        key_text.rect.center = (round(SCREEN_WIDTH / 2), round(SCREEN_HEIGHT / 7) * 6)
+        self.add(key_text)
+
 
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                from .MainMenu import MainMenu
-                Scene.load_scene(MainMenu("MainMenu", self.window))
+            from .MainMenu import MainMenu
+            Scene.load_scene(MainMenu("MainMenu", self.window))
 
 from ..Objects.GameSprite import GameSprite
 class GameOverSprite(GameSprite):
