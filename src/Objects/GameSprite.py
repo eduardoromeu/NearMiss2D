@@ -3,11 +3,12 @@ from src.Behaviour import Behaviour
 
 class GameSprite(Behaviour, pygame.sprite.Sprite):
   def __init__(self, name: str = 'NewBehaviour', position: tuple = (0,0),
-     scale: tuple = (0,0), **kwargs) -> None:
+               scale: tuple = (0,0), update_layer: int = 0, **kwargs) -> None:
     self.name = name
     self.position = position
     self.rotation = 0
     self.scale = scale
+    self.update_layer = update_layer
 
     for attr, value in kwargs.items():
       setattr(self, attr, value)

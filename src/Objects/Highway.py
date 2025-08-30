@@ -25,7 +25,7 @@ class Highway(GameSprite):
     if self.rect.top >= self.original_position[1] + self.rect.height:
       self.rect.top = self.original_position[1]
     if self.scene.player_car.is_braking and hasattr(self, 'lane'):
-      self.speed = self.initial_speed / 2
+      self.speed = self.initial_speed / 1.5
       # if self.lane.way_up:
     else:
       self.speed = self.initial_speed

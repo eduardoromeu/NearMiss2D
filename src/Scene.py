@@ -57,6 +57,7 @@ class Scene(ABC):
             self.hierarchy.append(obj)
             obj.set_scene(self) # Set object current scene
             obj.on_enable()
+        self.hierarchy.sort(key=lambda behaviour: behaviour.update_layer)
 
     def remove(self, *objs: Behaviour):
         for obj in objs:

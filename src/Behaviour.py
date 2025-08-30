@@ -4,9 +4,10 @@ class Behaviour(ABC):
 
   isActive: bool = False
 
-  def __init__(self, name: str = 'NewBehaviour', **kwargs) -> None:
+  def __init__(self, name: str = 'NewBehaviour', update_layer: int = 0, **kwargs) -> None:
     self.name = name
     self.scene = None
+    self.update_layer = update_layer
     for attr, value in kwargs.items():
       setattr(self, attr, value)
     self.start()

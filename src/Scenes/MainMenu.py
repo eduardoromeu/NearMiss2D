@@ -3,6 +3,7 @@ from collections.abc import Callable
 import pygame
 
 from .Gameplay import Gameplay
+from .HighScores import HighScores
 from ..Scene import Scene
 # from ..Objects.PlayerCar import Car
 from ..Objects.Road import Road
@@ -51,6 +52,7 @@ class MainMenuBehaviour(Behaviour):
     self.selection = 0
     self.options = [
       MenuOption('Start Game', self.start_game),
+      MenuOption('High Scores', self.high_scores),
       MenuOption('Exit Game', self.quit_game)
     ]
 
@@ -89,6 +91,9 @@ class MainMenuBehaviour(Behaviour):
 
   def start_game(self):
     Scene.load_scene(Gameplay("Gameplay", self.scene.window))
+
+  def high_scores(self):
+    Scene.load_scene(HighScores("HighScores", self.scene.window))
 
   def quit_game(self):
     pygame.event.post(pygame.event.Event(pygame.QUIT))

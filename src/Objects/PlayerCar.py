@@ -5,9 +5,9 @@ from ..Input import Input
 
 class PlayerCar(GameSprite):
 
-  def __init__(self, name: str = 'NewBehaviour', position: tuple = (0, 0), scale: tuple = (0, 0), **kwargs) -> None:
+  def __init__(self, name: str = 'NewBehaviour', position: tuple = (0, 0), scale: tuple = (0, 0), update_layer=1, **kwargs) -> None:
     self.is_braking = False
-    super().__init__(name, position, scale, **kwargs)
+    super().__init__(name, position, scale, update_layer, **kwargs)
 
   def start(self): # Call when behaviour is instanced
     self.image = pygame.image.load('./assets/Sprites/Cars/NEODUOL/NeoDuol_ESCADA.png').convert_alpha()

@@ -19,7 +19,7 @@ class TrafficCar(GameSprite):
       self.destroy()
     # simulate player braking
     if self.scene.player_car.is_braking and hasattr(self, 'lane'):
-      self.speed = self.initial_speed / 2
+      self.speed = self.initial_speed / 1.5
       # if self.lane.way_up:
     else:
       self.speed = self.initial_speed

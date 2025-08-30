@@ -4,6 +4,7 @@ from typing import Optional
 from .Scene import Scene
 from .Scenes.MainMenu import MainMenu
 from .Scenes.Gameplay import Gameplay
+from .Scenes.HighScores import HighScores
 from .Display import Display
 from .Input import Input
 

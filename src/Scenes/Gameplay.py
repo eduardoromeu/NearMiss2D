@@ -7,30 +7,30 @@ from ..Objects.Highway import Highway
 from ..Objects.UIText import UIText
 from ..Objects.PlayerCar import PlayerCar
 from ..Objects.TrafficCar import TrafficCar
-from ..Input import Input
 
 class Gameplay(Scene):
 
   def init(self):
-    road1 = Highway("road1", position=(0, 0), speed=10)
-    road2 = Highway("road2", position=(0, -682), speed=10)
-    road3 = Highway("road3", position=(0, 682), speed=10)
+    self.player_score = PlayerScore("PlayerScore")
+    self.add(self.player_score)
+
+    road1 = Highway("road1", position=(0, 0), speed=9)
+    road2 = Highway("road2", position=(0, -682), speed=9)
+    road3 = Highway("road3", position=(0, 682), speed=9)
     self.add(road1, road2, road3)
 
-    self.player_car = PlayerCar("PlayerCar", position=(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 10), rotozoom=(0, 0.25))
+    self.player_car = PlayerCar("PlayerCar", position=(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 10), rotozoom=(0, 0.2))
     self.add(self.player_car)
 
     if DEV_MODE:
-      self.debg_txt = UIText("score", 28, pygame.color.THECOLORS["white"], bg_color=pygame.color.THECOLORS["black"])
-      self.debg_txt.rect.bottom = SCREEN_HEIGHT - 2
+      self.debg_txt = UIText("DEV_BUILD", 28, pygame.color.THECOLORS["white"], bg_color=pygame.color.THECOLORS["black"], layer=2)
       self.add(self.debg_txt)
 
-    # self.gameplay_manager = SpawnManager()
     self.traffic_lanes = [
       TrafficLane(110, True, 8,  "Lane1"),
       TrafficLane(370, True, 10,  "Lane2"),
-      TrafficLane(640, False, 4, "Lane3"),
-      TrafficLane(910, False, 2, "Lane4")
+      TrafficLane(640, False, 2, "Lane3"),
+      TrafficLane(910, False, 4, "Lane4")
     ]
 
     self.add(*self.traffic_lanes)
@@ -46,16 +46,34 @@ class Gameplay(Scene):
     #   self.gameplay_manager.spawn_traffic()
 
 from ..Behaviour import Behaviour
+class PlayerScore(Behaviour):
+  def start(self):
+    self.score = 0
+
+  def on_enable(self):
+    self.score_txt = UIText("SCORE", 24, pygame.color.THECOLORS["whitesmoke"], bg_color=pygame.color.THECOLORS["black"], layer=2)
+    self.score_txt.rect.top = 10
+    self.score_txt.rect.centerx = SCREEN_WIDTH / 2
+    self.scene.add(self.score_txt)
+
+  def update(self):
+    self.score += 0.36 # Car is running at 80 KM/H
+    #self.scene.score_txt.text = f'SCORE {round((self.score / 1000), 3)}' # Kilometers
+    self.score_txt.text = f'DISTANCE: {round(self.score)}m' # Meters
+    self.score_txt.update_render()
+
 class TrafficLane(Behaviour):
-  def __init__(self, lanex: int, way_up: bool, cars_speed = 5, name: str = 'Lane', **kwargs):
+  def __init__(self, lanex: int, way_up: bool, cars_speed: float = 5, name: str = 'Lane', **kwargs):
     self.name = f'Lane{lanex}' if name == 'Lane' else name
+    self.update_layer = 1
     self.lanex = lanex
     self.way_up = way_up
     self.cars_speed = cars_speed
     self.spawn_chance = 0.4
     self.min_spawn_rate = 2000 # Min spawn rate
-    self.traffic_spawn_rate = {"min" : 5000, "max" : 6000, "set" : 5000} # Milliseconds to spawn a traffic car
-    self.spawn_rate_decrement = 250 # Spawn rate decrement after each spawn
+    self.traffic_spawn_rate = {"min" : 2000, "max" : 10000, "set" : 3000} # Milliseconds to spawn a traffic car
+    self.traffic_spawn_rate["set"] = randint(self.traffic_spawn_rate["min"], self.traffic_spawn_rate["max"]) # rnd first spawn time
+    self.spawn_rate_decrement = 25 # Spawn rate decrement after each spawn
     self.start_time = pygame.time.get_ticks()
     self.time_passed = self.start_time
     for attr, value in kwargs.items():
@@ -98,7 +116,8 @@ class TrafficLane(Behaviour):
 
     # spawn!
     tr_top_pos = randint(-450, 0)
-    traffic_car = TrafficCar("TrafficCar", position=(self.lanex, tr_top_pos), rotozoom=(180 if self.way_up else 0, 0.25), speed=self.cars_speed, lane=self)
+    x_offset = randint(self.lanex - 15, self.lanex + 15)
+    traffic_car = TrafficCar("TrafficCar", position=(x_offset, tr_top_pos), rotozoom=(180 if self.way_up else 0, 0.2), speed=self.cars_speed, lane=self)
     self.scene.add(traffic_car)
 
   def debug_text(self):
