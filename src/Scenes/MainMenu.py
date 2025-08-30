@@ -4,6 +4,7 @@ import pygame
 
 from .Gameplay import Gameplay
 from .HighScores import HighScores
+from ..Consts import SCREEN_WIDTH, SCREEN_HEIGHT
 from ..Scene import Scene
 # from ..Objects.PlayerCar import Car
 from ..Objects.Road import Road
@@ -25,6 +26,18 @@ class MainMenu(Scene):
     # Menu Behaviour
     menu_behaviour = MainMenuBehaviour("MainMenuBehaviour")
     self.add(menu_behaviour)
+
+    # Controls
+    ctrls_txt = UIText("CONTROLS", 52, color=pygame.Color('darkorange2'), name=f"ctrls_txt", bg_color=pygame.Color('black'))
+    ctrls_txt.rect.center = (round(SCREEN_WIDTH / 2), round((SCREEN_HEIGHT / 12) * 8))
+    txt_move = UIText("MOVE: WASD / ARROW KEYS", 42, color=pygame.Color('whitesmoke'), name=f"txt-move", bg_color=pygame.Color('black'))
+    txt_move.rect.center = (round(SCREEN_WIDTH / 2), round((SCREEN_HEIGHT / 12) * 9))
+    txt_pause = UIText("PAUSE: P", 42, color=pygame.Color('whitesmoke'), name=f"txt-pause", bg_color=pygame.Color('black'))
+    txt_pause.rect.center = (round(SCREEN_WIDTH / 2), round((SCREEN_HEIGHT / 12) * 10))
+    txt_exit = UIText("EXIT: ESC", 42, color=pygame.Color('whitesmoke'), name=f"txt-exit", bg_color=pygame.Color('black'))
+    txt_exit.rect.center = (round(SCREEN_WIDTH / 2), round((SCREEN_HEIGHT / 12) * 11))
+
+    self.add(ctrls_txt, txt_move, txt_pause, txt_exit)
 
   def handle_event(self, event: pygame.event.Event) -> None:
     if event.type == pygame.KEYDOWN:
