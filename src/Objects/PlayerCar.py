@@ -16,17 +16,17 @@ class PlayerCar(GameSprite):
     self.rect = self.image.get_rect(centerx=self.position[0], bottom=self.position[1])
 
   def update(self): # Call once per game loop iteration
-    if Input.is_key_pressed(pygame.K_UP) and self.rect.top > 0:
+    if Input.is_key_pressed(pygame.K_UP, pygame.K_w) and self.rect.top > 0:
       self.rect.centery -= 5
-    if Input.is_key_pressed(pygame.K_DOWN):
+    if Input.is_key_pressed(pygame.K_DOWN, pygame.K_s):
       self.is_braking = True
       if self.rect.bottom < Consts.SCREEN_HEIGHT:
         self.rect.centery += 8
     else:
       self.is_braking = False
-    if Input.is_key_pressed(pygame.K_RIGHT) and self.rect.right < Consts.SCREEN_WIDTH:
+    if Input.is_key_pressed(pygame.K_RIGHT, pygame.K_d) and self.rect.right < Consts.SCREEN_WIDTH:
       self.rect.centerx += 5
-    if Input.is_key_pressed(pygame.K_LEFT) and self.rect.left > 0:
+    if Input.is_key_pressed(pygame.K_LEFT, pygame.K_a) and self.rect.left > 0:
       self.rect.centerx -= 5
 
   def late_update(self): # Call after update

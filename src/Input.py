@@ -13,8 +13,11 @@ class Input():
             Display.toggle_fullscreen()
 
     @classmethod
-    def is_key_pressed(cls, key) -> bool:
-        return cls.pressed_keys[key]
+    def is_key_pressed(cls, *keys) -> bool:
+        for key in keys:
+            if cls.pressed_keys[key]:
+                return True
+        return False
 
     @classmethod
     def get_keydown_event(cls, key) -> bool:

@@ -7,6 +7,7 @@ from ..Objects.Highway import Highway
 from ..Objects.UIText import UIText
 from ..Objects.PlayerCar import PlayerCar
 from ..Objects.TrafficCar import TrafficCar
+from ..Input import Input
 
 class Gameplay(Scene):
 
@@ -39,6 +40,8 @@ class Gameplay(Scene):
       if event.key == pygame.K_ESCAPE:
         from .MainMenu import MainMenu
         Scene.load_scene(MainMenu("MainMenu", self.window))
+      if event.key == pygame.K_p:
+        self.paused = False if self.paused else True
     # if event.type == TRAFFIC_SPAWN_EVENT:
     #   self.gameplay_manager.spawn_traffic()
 

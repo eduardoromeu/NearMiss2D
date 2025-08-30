@@ -15,7 +15,7 @@ class Scene(ABC):
     def __init__(self, name: str, window: Surface) -> None:
         print(f"Loading scene {name}")
         self.name = name
-
+        self.paused = False
         # list of behaviours in this scene
         self.hierarchy: list[Behaviour] = []
 
@@ -31,6 +31,8 @@ class Scene(ABC):
     def game_loop(self):
         # print('game loop start')
         # Update behaviours
+        if self.paused:
+            return
         for behaviour in self.hierarchy:
             behaviour.update()
             # print(f'Updating {behaviour.name}')
