@@ -1,9 +1,12 @@
 import pygame
 from src.Behaviour import Behaviour
 
-class GameSprite(Behaviour, pygame.sprite.Sprite):
-  def __init__(self, name: str = 'NewBehaviour', position: tuple = (0,0),
-               scale: tuple = (0,0), update_layer: int = 0, **kwargs) -> None:
+class GameSprite(pygame.sprite.Sprite, Behaviour):
+
+  def __init__(self, name: str = 'NewBehaviour', position: tuple = (0, 0), scale: tuple = (0, 0), update_layer: int = 0,
+               **kwargs) -> None:
+
+    super().__init__()
     self.name = name
     self.position = position
     self.rotation = 0
@@ -19,6 +22,7 @@ class GameSprite(Behaviour, pygame.sprite.Sprite):
     if self.scale != (0, 0):
       self.image = pygame.transform.smoothscale(self.image, self.scale)
     self.rect = self.image.get_rect(center=self.position)
+    self.mask = pygame.mask.from_surface(self.image)
     pass
 
   def update(self): # Call once per game loop iteration

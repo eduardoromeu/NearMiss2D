@@ -11,9 +11,12 @@ class PlayerCar(GameSprite):
 
   def start(self): # Call when behaviour is instanced
     self.image = pygame.image.load('./assets/Sprites/Cars/NEODUOL/NeoDuol_ESCADA.png').convert_alpha()
+    self.mask_img = pygame.image.load('./assets/Sprites/Cars/NEODUOL/NeoDuol_mask.png').convert_alpha()
     if not (not hasattr(self, 'rotozoom') or not (self.rotozoom != (0, 0))):
       self.image = pygame.transform.rotozoom(self.image, self.rotozoom[0], self.rotozoom[1])
+      self.mask_img = pygame.transform.rotozoom(self.mask_img, self.rotozoom[0], self.rotozoom[1])
     self.rect = self.image.get_rect(centerx=self.position[0], bottom=self.position[1])
+    self.mask = pygame.mask.from_surface(self.mask_img)
 
   def update(self): # Call once per game loop iteration
     if Input.is_key_pressed(pygame.K_UP, pygame.K_w) and self.rect.top > 0:

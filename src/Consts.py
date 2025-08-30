@@ -1,7 +1,7 @@
 # D
 import pygame
 
-DEV_MODE = False
+DEV_MODE = True
 
 # S
 SCREEN_WIDTH = 1024

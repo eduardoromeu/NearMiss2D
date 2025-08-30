@@ -9,3 +9,9 @@ class HighScores(Scene):
         bg2 = Road("Bg2", position=(0, 682), scale=(1024, 682), speed=5)
         bg3 = Road("Bg2", position=(0, -682), scale=(1024, 682), speed=5)
         self.add(bg, bg2, bg3)
+
+    def handle_event(self, event: pygame.event.Event) -> None:
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                from .MainMenu import MainMenu
+                Scene.load_scene(MainMenu("MainMenu", self.window))
